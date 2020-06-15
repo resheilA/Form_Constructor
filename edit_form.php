@@ -8,6 +8,7 @@ $result = $conn->query($sql);
 	
 
 echo "<form method = 'post'>
+	 
       <select id='form' name='form_sel'>";
 while($row = $result->fetch_assoc())
 {
