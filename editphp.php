@@ -3,20 +3,26 @@
 include ('connect.php');
 
 
-$sql2 = "SELECT * FROM form_constructor WHERE common = '$_GET[common]'";
+$sql2 = "SELECT name, type, placeholder, options, form_name FROM form_constructor WHERE common = '".$_GET['common']."'";
   $result2 = $conn->query($sql2);
 if(!$result2)
 {
 	echo "error";
+	  echo("Error description: " . $result2 -> error);
+	   echo("Error description: " . mysqli_error($conn));
+
 }
  echo "<div class='container'>
         <form method ='post'>
 		
 		<br><br>";
   
+  $loopcount = 0;
          
   while($row2= $result2->fetch_assoc())
-  {	    
+  {
+		
+	if($loopcount == 0){echo "<input type='hidden' name='formname' value='".$row2['form_name']."'/>";}
  
   echo "<div class='row'>
         <div class='col-md-3'>
@@ -48,7 +54,7 @@ if(!$result2)
 		
   
 		
-
+		$loopcount++;
 }
          echo "<button type='submit' id='loginuser' name='form_edit'  class='btn btn-primary btn-block mb-4'>Submit</button>
               </form>
